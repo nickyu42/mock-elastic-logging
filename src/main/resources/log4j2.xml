@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{MM dd HH:mm:ss}] %p %c:%L - %m%n"/>
+        </Console>
+
+        <File name="File" fileName="/tmp/mock_logs/sap.log">
+            <PatternLayout pattern="[%d{MM dd HH:mm:ss}] %p %c:%L - %m%n"/>
+        </File>
+
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>

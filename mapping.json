@@ -1,0 +1,31 @@
+{
+    "settings": {},
+    "mappings": {
+        "properties": {
+            "epoch_timestamp": {
+                "type": "long"
+            },
+            "project_name": {
+                "type": "keyword"
+            },
+            "class": {
+                "type": "keyword"
+            },
+            "version_hash": {
+                "type": "keyword"
+            },
+            "filename": {
+                "type": "keyword"
+            },
+            "fileline": {
+                "type": "integer"
+            },
+            "severity": {
+                "type": "keyword"
+            },
+            "trigger_count": {
+                "type": "long"
+            }
+        }
+    }
+}

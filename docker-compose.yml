@@ -1,0 +1,81 @@
+version: '3.6'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+    volumes:
+      - data:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - elastic
+    restart: unless-stopped
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.6.2
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    networks:
+      - elastic
+    restart: unless-stopped
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.6.2
+    container_name: logstash
+    command: -f /etc/logstash/conf.d/
+    secrets:
+      - source: logstash_conf
+        target: /etc/logstash/conf.d
+    ports:
+      - "5000:5000"
+      - "5044:5044"
+    networks:
+      - elastic
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+  filebeat:
+    user: root
+    image: docker.elastic.co/beats/filebeat:7.6.2
+    container_name: filebeat
+    environment:
+      - ELASTICSEARCH_HOST=elasticsearch
+      - KIBANA_HOST=kibana
+    secrets:
+      - source: filebeat_conf
+        target: /usr/share/filebeat/filebeat.yml
+    networks:
+      - elastic
+    command: ["--strict.perms=false"]
+    volumes:
+      - mock_logs:/var/log/mock:ro
+    depends_on:
+      - elasticsearch
+      - logstash
+    restart: unless-stopped
+
+volumes:
+  data:
+    driver: local
+  mock_logs:
+    driver: local
+
+networks:
+  elastic:
+    driver: bridge
+
+secrets:
+  filebeat_conf:
+    file: ./filebeat.yml
+
+  logstash_conf:
+    file: ./logstash.conf

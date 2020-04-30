@@ -1,0 +1,10 @@
+version: '3.6'
+
+services:
+  java_log_gen:
+    build: .
+    image: java_log_gen
+    container_name: java_log_gen
+    restart: on-failure
+    volumes:
+    - mock_logs:/tmp/mock_logs

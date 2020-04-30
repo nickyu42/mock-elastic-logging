@@ -1,0 +1,14 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/mock/*.log
+    fields:
+      service: log4j
+    multiline.pattern: '^\['
+    multiline.negate: true
+    multiline.match: after
+
+output.logstash:
+  hosts:
+    - logstash:5044
