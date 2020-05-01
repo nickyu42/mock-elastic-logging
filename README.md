@@ -25,11 +25,20 @@ docker-compose down
 ## Instructions elastic stack + mock java project
 
 It is recommended to only run the java project for a short period,
-as it does not stop producing logs  
+as it does not stop producing logs.  
+
+The logs are parsed by Logstash by default,
+but it is possible to just output the raw log messages directly to Elasticsearch
+by using `docker-compose.java_raw.yml` instead of `docker-compose.java.yml`
 
 Start Elasticsearch, Filebeat, Logstash, Kibana and java_log_gen  
 ```shell script
 docker-compose -f docker-compose.yml -f docker-compose.java.yml up -d
+```
+
+Start Elasticsearch, Filebeat, Kibana and java_log_gen  
+```shell script
+docker-compose -f docker-compose.yml -f docker-compose.java_raw.yml up -d
 ```
 
 Stop and remove the services  
@@ -39,7 +48,7 @@ docker-compose down --remove-orphans
 
 Stop `java_log_gen`
 ```shell script
-docker-compose -f docker-compose.yml -f docker-compose.java.yml stop java_log_gen
+docker container stop java_log_gen
 ```
 
 ## Retrieving example logs
