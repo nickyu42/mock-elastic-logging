@@ -8,7 +8,7 @@ public class FailedResponse extends AbstractHTTPResponse {
 
     @Override
     public Integer getResponseCode() {
-        logger.warn(new FailedResponseException().getStackTrace());
+        logger.error("Response failed", new FailedResponseException());
         return 404;
     }
 }
