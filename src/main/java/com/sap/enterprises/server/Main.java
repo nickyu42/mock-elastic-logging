@@ -50,7 +50,7 @@ public class Main {
                 } catch (DivisionByZero ignored) {
                 }
 
-                Main.sleep((long) (1000 + (Math.random() * 3000)));
+                Main.sleep((long) (Math.random() * 10));
             }
         }
     }
@@ -72,7 +72,7 @@ public class Main {
                     }
                 }
 
-                Main.sleep((long) (Math.random() * 2000 + 1000));
+                Main.sleep((long) (Math.random() * 10));
             }
         }
     }
@@ -90,7 +90,7 @@ public class Main {
                 int i = new Random().nextInt(countries.length);
                 transportationService.moveToCountry(countries[i]);
 
-                Main.sleep((long) (Math.random() * 1000 + 1000));
+                Main.sleep((long) (Math.random() * 10));
             }
         }
     }
