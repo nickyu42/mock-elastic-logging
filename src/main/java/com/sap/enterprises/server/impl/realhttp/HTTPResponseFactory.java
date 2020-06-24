@@ -15,6 +15,7 @@ public class HTTPResponseFactory {
         logger.info("Created new " + failed + " response");
 
         if (failed) {
+            logger.warn("Creating response failed");
             return new FailedResponse();
         }
 

@@ -21,7 +21,7 @@ public class ArithmeticAbstracter {
      * @return integers added
      */
     public Integer addition(Integer integer1, Integer integer2) {
-        logger.info("Integer addition of " + integer1.toString() + " and " + integer2.toString());
+        logger.debug("Integer addition of " + integer1.toString() + " and " + integer2.toString());
 
         int val = integer1.getInnerInt() + integer2.getInnerInt();
         return this.integerFactory.createInteger(val);
@@ -35,12 +35,17 @@ public class ArithmeticAbstracter {
      * @throws DivisionByZero when first integer is zero
      */
     public Integer division(Integer integer1, Integer integer2) throws DivisionByZero {
+        logger.debug("Integer division of " + integer1.toString() + " and " + integer2.toString());
+
         if (integer2.getInnerInt() == 0) {
             logger.error("Division by zero occurred");
             throw new DivisionByZero();
         }
 
         int val = integer1.getInnerInt() / integer2.getInnerInt();
+
+        logger.debug("Result of division is " + val);
+
         return this.integerFactory.createInteger(val);
     }
 }
